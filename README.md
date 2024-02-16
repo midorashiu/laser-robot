@@ -1,2 +1,2 @@
-# laser-robot
-ELEC 391 final project
+# ELEC 391 Final Project
+2 DOF robot that draws with a laser pointer
