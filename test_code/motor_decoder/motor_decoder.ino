@@ -1,9 +1,12 @@
+//decoder code combined with PID
+
 // Define rotary encoder pins
 #define ENC_A 2
 #define ENC_B 3
 
 #define PWMA 11
-#define PWMB 10
+#define IN1 12
+#define IN2 13
 
 static int lastCounter = 0;
 unsigned long _lastIncReadTime = micros(); 
@@ -12,11 +15,12 @@ int _pauseLength = 25000;
 int _fastIncrement = 1;
 
 volatile int counter = 0;
+volatile unsigned previousMillis=0;
 
 // PID constants
-float kp = 1;
-float kd = 0.025;
-float ki = 0.0;
+float kp = 1.2;
+float kd = 0;
+float ki = 0;
 
 //vars for PID
 int pos = 0; 
@@ -24,7 +28,7 @@ long prevT = 0;
 float eprev = 0;
 float eintegral = 0;
 
-int target_positions = [8, 16, 8, 0];
+int target_positions = 200;
 int target;
 int n = 0;
 
@@ -35,12 +39,11 @@ void setup() {
   pinMode(ENC_A, INPUT_PULLUP);
   pinMode(ENC_B, INPUT_PULLUP);
   pinMode(PWMA,OUTPUT);
-  pinMode(PWMB,OUTPUT);
+  pinMode(IN1,OUTPUT);
+  pinMode(IN2,OUTPUT);
   
   attachInterrupt(digitalPinToInterrupt(ENC_A), read_encoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENC_B), read_encoder, CHANGE); 
-  
-  Serial.println("target pos");
 }
 
 void loop() {
@@ -49,16 +52,16 @@ void loop() {
 
   // If count has changed print the new value to serial
   if(counter != lastCounter){
-    Serial.println(counter);
+    //Serial.println(counter);
     lastCounter = counter;
   }
 
   //set target position
-  target = target_positions[n];
-  if (pos==target){ //once we reach a position, go to next position
-    if (n<4) n++;
-    else n=0;
-  }
+  target = target_positions;
+  // if (pos==target){ //once we reach a position, go to next position
+  //   if (n<4) n++;
+  //   else n=0;
+  // }
 
   // time difference
   long currT = micros();
@@ -75,30 +78,45 @@ void loop() {
 
   // control signal
   float pwmVal = kp*e + kd*dedt + ki*eintegral;
+
   moveMotor(pwmVal);
+
   eprev = e;
-  Serial.print(target);
-  Serial.print(" ");
-  Serial.print(pos);
-  Serial.println();
+ 
+  if (millis() - previousMillis >= 200) { // Print every 1 second
+    previousMillis = millis();
+    //Serial.print("Target: ");
+    Serial.print(target);
+    Serial.print(" ");
+    //Serial.print("Postion: ");
+    Serial.print(pos);
+    //Serial.print("PID: ");
+    //Serial.print(pwmVal);
+    Serial.print(" ");
+    Serial.print(dedt);
+    Serial.println();
+  }
+  
 }
 
 void moveMotor(float pwmVal){
-  float motorSpeed = constrain(abs(pwmVal), 0, 255)
+  float motorSpeed = abs(pwmVal);//constrain(abs(pwmVal), 0, 255);
+
   if (pwmVal>0)                    
   {
     analogWrite(PWMA, motorSpeed); 
-    analogWrite(PWMB, 0); 
+    digitalWrite(IN1,HIGH);
+    digitalWrite(IN2,LOW);
   }
   else if(pwmVal<0)
   {
-    analogWrite(PWMA, 0); 
-    analogWrite(PWMB, motorSpeed); 
+    analogWrite(PWMA, motorSpeed); 
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
   }
   else
   {
     analogWrite(PWMA, 0); 
-    analogWrite(PWMB, 0); 
   }
 }
 void read_encoder() {
