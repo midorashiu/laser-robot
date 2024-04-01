@@ -1,15 +1,15 @@
-//decoder code combined with PID
-
 //mode: 0 = hbridge, 1 = motor driver
 int mode = 1;
 // Define rotary encoder pins
 #define ENC_A 2
 #define ENC_B 3
-
+//pins for moving the motor
 #define PWMA 11  //pwm for forward
 #define PWMB 10  //pwm for backwards
 #define IN1 12   //pwm for backwards
 #define IN2 13   //pwm for backwards
+//pin for ISR timing test
+#define DUTY 7
 
 //decoder variables
 static int lastCounter = 0;
@@ -17,31 +17,24 @@ unsigned long _lastIncReadTime = micros();
 unsigned long _lastDecReadTime = micros();
 int _pauseLength = 25000;
 int _fastIncrement = 1;
-
 volatile int counter = 0;
-volatile unsigned printTime = 0;
-volatile unsigned targetTime = 0;
-bool pulse = true;
 
 // PID constants
-float kp = 1.2;
-float kd = 0;
-float ki = 0;
+float kp = 1.2;//5.201873;
+float kd = 0;//0.017286;
+float ki = 0;//1.772212;
 
 //vars for PID
 int pos = 0;
-int posprev = 0;
 long prevT = 0;
 float errprev = 0;
 int err;
 float deriv;
 float derivFilt;
-float filtSum = 0;
 float integ = 0;
 float pwmVal;
 
 int target;
-int incomingChar;
 
 //filter variables
 const int numSamples = 5;  //number of samples for filtering
@@ -49,16 +42,92 @@ float weightRaw[numSamples];
 float weightNorm[numSamples];
 float weightSum = 0;
 float dataFilt[numSamples];
-float dataAve;
+float filtSum = 0;
 int sampleCount = 0;
 
-//char charRead;
-char dataStr[100] = "";
-char buffer[7];
+//for testing
+volatile unsigned targetTime = 0;
+bool pulse = true;
+
+// Timer 1 compare interrupt service routine
+ISR(TIMER1_COMPA_vect){
+  //turn on GPIO pin for ISR timing test
+  digitalWrite(DUTY, HIGH);
+  //advance the COMPA Register
+  OCR1A += 1707;
+  //calculate vout from current values
+  pwmVal = kp * err + kd * derivFilt + ki * integ;
+  //move the motor
+  moveMotor(pwmVal);
+  //turn off GPIO pin for ISR timing test
+  digitalWrite(DUTY, LOW);
+}
 
 void setup() {
-  // Start the serial monitor to show output
-  Serial.begin(9600);
+  noInterrupts(); // Disable all interrupts
+  init_timer1(); // Setup timer 1
+  interrupts(); // Enable all interrupts
+
+  init_pins();
+  Serial.begin(9600);// Start the serial monitor to show output
+ 
+  filter_coeffs(); //calculate the coefficients for the weighted sum filter
+  memset(dataFilt, 0, sizeof(dataFilt)); //reset filtered data
+}
+
+void loop() {
+
+  //set 
+  static int lastCounter = 0;
+  // If count has changed print the new value to serial
+  if (counter != lastCounter) {
+    lastCounter = counter;
+  }
+
+  setTarget();
+
+  // time difference
+  long currT = micros();
+  float deltaT = ((float)(currT - prevT)) / (1.0e6);
+  prevT = currT;
+
+  //continuously get values
+  pos = counter;
+  err = pos - target;                  // error
+  deriv = (err - errprev) / (deltaT);  // derivative
+  weightedFilter(deriv);
+  integ = integ + err * deltaT;  // integral
+  errprev = err;
+
+  debugStatements();
+}
+void debugStatements(){
+  Serial.print(target);
+  Serial.print(" ");
+  Serial.print(pos);
+  Serial.print(" ");
+  Serial.print(pwmVal);
+  Serial.print(" ");
+  Serial.print(pwmVal);
+  // //Serial.print(" ");
+  // //Serial.print(err);
+  // // Serial.print(" ");
+  // Serial.print(deriv);
+  // Serial.print(" ");
+  // Serial.print(derivFilt);
+  Serial.println();
+  //}
+
+}
+//Initiates timer 1 and its interrupts
+inline void init_timer1() {
+  TCCR1A = 0; //Init Timer1A
+  TCCR1B = 0; //Init TImer1B
+  TCCR1B |= B00000001;  // Prescaler = 1
+  OCR1A = 1707; //Set output compare value = 16MHz*107us
+  TIMSK1 |= B00000010;  // Enable Timer Compare Interrupt
+}
+inline void init_pins(){
   // Set encoder pins and attach interrupts
   pinMode(ENC_A, INPUT_PULLUP);
   pinMode(ENC_B, INPUT_PULLUP);
@@ -66,14 +135,16 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(ENC_B), read_encoder, CHANGE);
   //set pwm pins as outputs
   pinMode(PWMA, OUTPUT);
-
   if (mode == 0) {
     pinMode(PWMB, OUTPUT);
   } else if (mode == 1) {
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);
   }
-
+  //set pin for ISR timing test
+  pinMode(DUTY, OUTPUT);
+}
+inline void filter_coeffs(){
   //compute filter coeff
   for (int n = 1; n <= numSamples; n++) {
     weightRaw[n - 1] = exp(-4.0 * (float)(n - 1) / (float)(numSamples - 1));
@@ -82,82 +153,24 @@ void setup() {
   for (int n = 0; n < numSamples; n++) {
     weightNorm[n] = weightRaw[n] / weightSum;
   }
-
-  memset(dataFilt, 0, sizeof(dataFilt));
-  dataStr[0] = 0; //clean out string
 }
+void setTarget(){
 
-void loop() {
-
-  static int lastCounter = 0;
-
-  // If count has changed print the new value to serial
-  if (counter != lastCounter) {
-    //Serial.println(counter);
-    lastCounter = counter;
-  }
-
+  //target = 100;
   if (millis() - targetTime >= 1000) {  // Change target every 5 second
     targetTime = millis();
     if (pulse) target += 100;
     else target -= 100;
     pulse = !pulse;
   }
-
-  // time difference
-  long currT = micros();
-  float deltaT = ((float)(currT - prevT)) / (1.0e6);
-  prevT = currT;
-
-  //read position from the decoder
-  pos = counter;
-  float velocity = ((pos-posprev)/deltaT)/600.0*60.0;
-  posprev = pos;
-
-  //PID
-  err = pos - target;                  // error
-  deriv = (err - errprev) / (deltaT);  // derivative
-  derivFilt = weightedFilter(deriv);
-  integ = integ + err * deltaT;  // integral
-  errprev = err;
-
-  pwmVal = kp * err + kd * derivFilt + ki * integ;
-  moveMotor(pwmVal);
-
-  //if (millis() - printTime >= 500) { // Print every half second
-  //printTime = millis();
-    //Serial.print(target);
-    //Serial.print(pos);
-    //Serial.print(pwmVal);
-    //Serial.print(" ");
-    //Serial.print(err);
-    // Serial.print(" ");
-    //Serial.print(deriv);
-    
-    //Serial.print(dataAve);
-  if (millis() - printTime >= 1000) {  
-    itoa(target,buffer,10);
-    strcat(dataStr, buffer);
-    strcat( dataStr, ", ");
-    itoa(pos,buffer,10);
-    strcat(dataStr, buffer);
-    strcat( dataStr, ", ");
-    dtostrf(deriv,4, 2, buffer);
-    strcat( dataStr, buffer); 
-    strcat( dataStr, ", ");
-    dtostrf(dataAve,4, 2, buffer);
-    strcat( dataStr, buffer); 
-    strcat( dataStr, 0);
-    Serial.println(dataStr);
-  }
 }
-float weightedFilter(float data) {
+
+void weightedFilter(float data) {
   filtSum -= dataFilt[sampleCount];                       //remove oldest entry from sum
   dataFilt[sampleCount] = data * weightNorm[sampleCount];  //update entry with new data
   filtSum += dataFilt[sampleCount];
-  dataAve = filtSum / (float)numSamples;
+  derivFilt = filtSum / (float)numSamples;
   sampleCount = (sampleCount + 1) % numSamples;
-  return dataAve;
 }
 
 void moveMotor(float pwmVal) {
