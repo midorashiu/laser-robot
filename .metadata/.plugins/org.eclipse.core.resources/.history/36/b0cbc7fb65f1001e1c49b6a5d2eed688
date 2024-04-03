@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#define DATA_SIZE 70
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -41,21 +41,20 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
-DMA_HandleTypeDef hdma_spi1_rx;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint8_t Bot_Data[DATA_SIZE] = {0};
-uint8_t Top_Data[DATA_SIZE] = {0};
+uint8_t RX_Data[DATA_SIZE] = {0};
+uint8_t botMotorCommand = 0x01;
+uint8_t slave2Command = 0x02;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
-static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
-
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -94,11 +93,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
-  MX_DMA_Init();
   MX_USART2_UART_Init();
-
-  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -108,19 +104,12 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_RESET);
-	  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);
-	  HAL_UART_Transmit_IT(&huart2, Bot_Data, DATA_SIZE);
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_SET);
 
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_RESET);
-	  HAL_SPI_Receive_DMA(&hspi1, Top_Data, DATA_SIZE);
-	  HAL_UART_Transmit_IT(&huart2, Top_Data, DATA_SIZE);
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_SET);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
+
 /**
   * @brief System Clock Configuration
   * @retval None

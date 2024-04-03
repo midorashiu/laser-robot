@@ -19,6 +19,8 @@ int mode = 1;
 #define IN_TOP_1 12   //top motor direction for motor driver
 #define IN_TOP_2 13   //top motor direction for motor driver
 
+//Laser pin
+#define LASER 15
 //pin for ISR timing test
 #define DUTY 7
 //------------------------------DECODER--------------------------------------//
@@ -54,7 +56,6 @@ float integ_TOP = 0; //top motor integral of position
 float pwmVal_TOP; //top motor pwm value 
 
 //drawing target shape of square
-int target;
 int state = 0; //state of the shape 
 int x_coords[4] = {0,0,10,10}; //x coordinates for bottom motor
 int y_coords[4] = {0,10,10,0}; //y coordinates for top motor
@@ -102,6 +103,8 @@ void setup() {
   filter_coeffs(); //calculate the coefficients for the weighted sum filter
   memset(dataFilt_BOT, 0, sizeof(dataFilt_BOT)); //reset filtered data
   memset(dataFilt_TOP, 0, sizeof(dataFilt_TOP)); //reset filtered data
+  //turn laser on
+  digitalWrite(LASER,HIGH);
 }
 
 void loop() {
@@ -137,7 +140,7 @@ void loop() {
   debugStatements();
 }
 void debugStatements(){
-  Serial.print(target);
+  Serial.print();
   Serial.print(" ");
   Serial.print(pos);
   Serial.print(" ");
@@ -183,6 +186,8 @@ inline void init_pins(){
     pinMode(IN_TOP_1, OUTPUT);
     pinMode(IN_TOP_2, OUTPUT);
   }
+  //set pin for laser
+  pinMode(LASER, OUTPUT);
   //set pin for ISR timing test
   pinMode(DUTY, OUTPUT);
 }
@@ -195,9 +200,6 @@ inline void filter_coeffs(){
   for (int n = 0; n < numSamples; n++) {
     weightNorm[n] = weightRaw[n] / weightSum;
   }
-}
-void setTarget(){
-
 }
 
 void weightedFilter(float data_BOT,float data_TOP) {
