@@ -20,9 +20,14 @@ int _fastIncrement = 1;
 volatile int counter = 0;
 
 // PID constants
-float kp = 1.2;//5.201873;
-float kd = 0;//0.017286;
-float ki = 0;//1.772212;
+float kp = 0.069207;//5.201873;
+float ki = 0.026327;//1.772212;
+float kd = 0.039141;//0.017286;
+
+// PID constants
+// float kp = 0.0182838975588512;
+// float kd = 0.0039104441924743;
+// float ki = 0.0150672555655749;
 
 //vars for PID
 int pos = 0;
@@ -107,8 +112,6 @@ void debugStatements(){
   Serial.print(pos);
   Serial.print(" ");
   Serial.print(pwmVal);
-  Serial.print(" ");
-  Serial.print(pwmVal);
   // //Serial.print(" ");
   // //Serial.print(err);
   // // Serial.print(" ");
@@ -156,13 +159,13 @@ inline void filter_coeffs(){
 }
 void setTarget(){
 
-  //target = 100;
-  if (millis() - targetTime >= 1000) {  // Change target every 5 second
-    targetTime = millis();
-    if (pulse) target += 100;
-    else target -= 100;
-    pulse = !pulse;
-  }
+  target = 100;
+  // if (millis() - targetTime >= 1000) {  // Change target every 5 second
+  //   targetTime = millis();
+  //   if (pulse) target += 100;
+  //   else target -= 100;
+  //   pulse = !pulse;
+  // }
 }
 
 void weightedFilter(float data) {
