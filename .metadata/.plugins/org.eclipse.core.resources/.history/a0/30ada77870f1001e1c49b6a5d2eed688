@@ -108,15 +108,15 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_RESET); //start bottom encoder communication
-	  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);  //read from encoder
-	  HAL_UART_Transmit_IT(&huart2, Bot_Data, DATA_SIZE);//string is displayed in the serial port terminal
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_SET); //end bottom encoder communication
+	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_RESET);
+	  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);
+	  HAL_UART_Transmit_IT(&huart2, Bot_Data, DATA_SIZE);
+	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_SET);
 
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_RESET); //start top encoder communication
-	  HAL_SPI_Receive_DMA(&hspi1, Top_Data, DATA_SIZE); //read from encoder
-	  HAL_UART_Transmit_IT(&huart2, Top_Data, DATA_SIZE); //string is displayed in the serial port terminal
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_SET); //end top encoder communication
+	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_RESET);
+	  HAL_SPI_Receive_DMA(&hspi1, Top_Data, DATA_SIZE);
+	  HAL_UART_Transmit_IT(&huart2, Top_Data, DATA_SIZE);
+	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_SET);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
