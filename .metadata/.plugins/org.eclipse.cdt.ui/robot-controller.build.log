@@ -1,10 +1,10 @@
-19:30:08 **** Incremental Build of configuration Debug for project robot-controller ****
+23:08:27 **** Incremental Build of configuration Debug for project robot-controller ****
 make -j8 all 
 arm-none-eabi-size  robot-controller.elf 
    text	   data	    bss	    dec	    hex	filename
-   5856	     12	   1732	   7600	   1db0	robot-controller.elf
+  15192	    152	   2312	  17656	   44f8	robot-controller.elf
 Finished building: default.size.stdout
  
 
-19:30:09 Build Finished. 0 errors, 0 warnings. (took 1s.168ms)
+23:08:28 Build Finished. 0 errors, 0 warnings. (took 461ms)
 

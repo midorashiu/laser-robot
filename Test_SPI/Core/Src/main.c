@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#define DATA_SIZE 70
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -42,9 +42,11 @@
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
 DMA_HandleTypeDef hdma_spi1_rx;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+#define DATA_SIZE 70
 uint8_t Bot_Data[DATA_SIZE] = {0};
 uint8_t Top_Data[DATA_SIZE] = {0};
 /* USER CODE END PV */
@@ -52,10 +54,9 @@ uint8_t Top_Data[DATA_SIZE] = {0};
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART2_UART_Init(void);
-
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -94,11 +95,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
   MX_DMA_Init();
   MX_USART2_UART_Init();
-
-  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -108,19 +107,26 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_RESET); //start bottom encoder communication
+
+    /* USER CODE BEGIN 3 */
+
+	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
+	  HAL_GPIO_WritePin(CS_BOT_GPIO_Port, CS_BOT_Pin, GPIO_PIN_RESET); //start bottom encoder communication
 	  HAL_SPI_Receive_DMA(&hspi1, Bot_Data, DATA_SIZE);  //read from encoder
 	  HAL_UART_Transmit_IT(&huart2, Bot_Data, DATA_SIZE);//string is displayed in the serial port terminal
-	  HAL_GPIO_WritePin(CS_BOT_Port, CS_BOT_Pin, GPIO_PIN_SET); //end bottom encoder communication
+	  HAL_GPIO_WritePin(CS_BOT_GPIO_Port, CS_BOT_Pin, GPIO_PIN_SET); //end bottom encoder communication
 
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_RESET); //start top encoder communication
+	  HAL_GPIO_WritePin(CS_TOP_GPIO_Port, CS_TOP_Pin, GPIO_PIN_RESET); //start top encoder communication
 	  HAL_SPI_Receive_DMA(&hspi1, Top_Data, DATA_SIZE); //read from encoder
 	  HAL_UART_Transmit_IT(&huart2, Top_Data, DATA_SIZE); //string is displayed in the serial port terminal
-	  HAL_GPIO_WritePin(CS_TOP_Port, CS_TOP_Pin, GPIO_PIN_SET); //end top encoder communication
-    /* USER CODE BEGIN 3 */
+	  HAL_GPIO_WritePin(CS_TOP_GPIO_Port, CS_TOP_Pin, GPIO_PIN_SET); //end top encoder communication
+
+	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -232,6 +238,22 @@ static void MX_USART2_UART_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -246,16 +268,37 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, CS_BOT_Pin|CS_TOP_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : CS_BOT_Pin CS_TOP_Pin */
-  GPIO_InitStruct.Pin = CS_BOT_Pin|CS_TOP_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CS_BOT_GPIO_Port, CS_BOT_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CS_TOP_GPIO_Port, CS_TOP_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : LED_Pin */
+  GPIO_InitStruct.Pin = LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : CS_BOT_Pin */
+  GPIO_InitStruct.Pin = CS_BOT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(CS_BOT_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : CS_TOP_Pin */
+  GPIO_InitStruct.Pin = CS_TOP_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(CS_TOP_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

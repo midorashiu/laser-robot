@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "string.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +48,63 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+int mode = 1;
+
+char uart_buf[50];
+int uart_buf_len;
+long double prev_time;
+long double curr_time;
+long double time_diff;
+
+//------------------------------PID------------------------------------------//
+long prevT = 0;
+
+// Bottom motor PID constants
+float kp_BOT = 0.069207;//bottom motor proportional constant
+float ki_BOT = 0.026327;//bottom motor integral constant
+float kd_BOT = 0.039141;//bottom motor derivative constant
+// Top motor PID constants
+float kp_TOP = 0.069207;//top motor proportional constant
+float ki_TOP = 0.026327;//top motor integral constant
+float kd_TOP = 0.039141;//top motor derivative constant
+
+//bottom motor PID variables
+int pos_BOT = 0; //bottom motor position
+int err_BOT; //bottom motor position error
+float errprev_BOT = 0; //bottom motor previous position error
+float deriv_BOT; //bottom motor derivative of position
+float derivFilt_BOT; //bottom motor filtered derivative of position
+float integ_BOT = 0; //bottom motor integral of position
+float pwmVal_BOT; //bottom motor pwm value
+//top motor PID variables
+int pos_TOP = 0; //top motor position
+int err_TOP; //top modataFilttor position error
+float errprev_TOP = 0; //top motor previous position error
+float deriv_TOP; //top motor derivative of position
+float derivFilt_TOP; //top motor filtered derivative of position
+float integ_TOP = 0; //top motor integral of position
+float pwmVal_TOP; //top motor pwm value
+
+//drawing target shape of square
+int state = 0; //state of the shape
+int x_coords[4] = {0,0,10,10}; //x coordinates for bottom motor
+int y_coords[4] = {0,10,10,0}; //y coordinates for top motor
+
+//weighted sum filter variables
+#define numSamples 5  //number of samples for filtering
+float weightRaw[numSamples]; //raw weights
+float weightNorm[numSamples]; //normalized weights
+float weightSum = 0; //sum of the weights
+int sampleCount = 0; //keeps track of the number of samples
+//bottom motor filter
+float dataFilt_BOT[numSamples]; //filtered data of the bottom motor
+float filtSum_BOT = 0; //sum of filtered data bottom motor
+//top motor filter
+float dataFilt_TOP[numSamples];//filtered data of the top motor
+float filtSum_TOP = 0; //sum of filtered data top motor
+
+int encoder_BOT_pos;
+int encoder_TOP_pos;
 
 /* USER CODE END PV */
 
@@ -57,7 +115,12 @@ static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
-
+void filter_coeffs(void);
+void weightedFilter(float data_BOT,float data_TOP);
+void moveBottomMotor(float pwmVal);
+void moveTopMotor(float pwmVal);
+void read_encoder_BOT(void);
+void read_encoder_TOP(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -97,8 +160,24 @@ int main(void)
   MX_SPI1_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+
   /* USER CODE BEGIN 2 */
 
+  //printing to PuTTy
+  //uart_buf_len = sprintf(uart_buf, "Timer Test\r\n");
+  //HAL_UART_Transmit(&huart2, (uint8_t *)uart_buf, uart_buf_len, 100);
+
+  //Start timer
+  HAL_TIM_Base_Start_IT(&htim2);
+
+  //HAL_TIM_Base_Start(&htim2);
+  prev_time =  __HAL_TIM_GET_COUNTER(&htim2)*1000000;
+
+  filter_coeffs(); //calculate the coefficients for the weighted sum filter
+  memset(dataFilt_BOT, 0, sizeof(dataFilt_BOT)); //reset filtered data
+  memset(dataFilt_TOP, 0, sizeof(dataFilt_TOP)); //reset filtered data
+  //turn laser on
+  HAL_GPIO_WritePin(LASER_GPIO_Port, LASER_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,6 +187,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  // time difference
+	  long currT = __HAL_TIM_GET_COUNTER(&htim2);//micros(); CHANGE AFTER DEBUG
+	  float deltaT = ((float)(currT - prevT)) / (1.0e6);
+	  prevT = currT;
+
+	  //move to the next vertex when there is a small position error
+	  if ((err_BOT<10) && (err_BOT<10)){
+		if (state==3)state = 0;//restart the shape
+		else state++;
+	  }
+	  //continuously get values for the motors
+	  pos_BOT = encoder_BOT_pos;
+	  pos_TOP = encoder_TOP_pos;
+
+	  err_BOT = pos_BOT - x_coords[state];                  // error
+	  err_TOP = pos_TOP - y_coords[state];
+	  deriv_BOT = (err_BOT - errprev_BOT) / (deltaT);  // derivative
+	  deriv_TOP = (err_TOP - errprev_TOP) / (deltaT);
+	  weightedFilter(deriv_BOT, deriv_TOP);
+	  integ_BOT = integ_BOT + err_BOT * deltaT;  // integral
+	  integ_TOP = integ_TOP + err_TOP * deltaT;
+	  errprev_BOT = err_BOT;
+	  errprev_TOP = err_TOP;
   }
   /* USER CODE END 3 */
 }
@@ -291,11 +393,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, CS_BOT_Pin|CS_TOP_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, ISR_DUTY_Pin|PWM_BOT_A_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, PWM_BOT_B_Pin|IN_BOT_1_Pin|IN_BOT_2_Pin|PWM_TOP_B_Pin
-                          |PWM_TOP_A_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, IN_BOT_1_Pin|IN_BOT_2_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LASER_Pin CS_BOT_Pin CS_TOP_Pin */
   GPIO_InitStruct.Pin = LASER_Pin|CS_BOT_Pin|CS_TOP_Pin;
@@ -304,17 +405,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : ISR_DUTY_Pin PWM_BOT_A_Pin */
-  GPIO_InitStruct.Pin = ISR_DUTY_Pin|PWM_BOT_A_Pin;
+  /*Configure GPIO pin : ISR_DUTY_Pin */
+  GPIO_InitStruct.Pin = ISR_DUTY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(ISR_DUTY_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PWM_BOT_B_Pin IN_BOT_1_Pin IN_BOT_2_Pin PWM_TOP_B_Pin
-                           PWM_TOP_A_Pin IN_TOP_2_Pin IN_TOP_1_Pin */
-  GPIO_InitStruct.Pin = PWM_BOT_B_Pin|IN_BOT_1_Pin|IN_BOT_2_Pin|PWM_TOP_B_Pin
-                          |PWM_TOP_A_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin;
+  /*Configure GPIO pin : PWM_BOT_A_Pin */
+  GPIO_InitStruct.Pin = PWM_BOT_A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  HAL_GPIO_Init(PWM_BOT_A_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PWM_BOT_B_Pin PWM_TOP_B_Pin PWM_TOP_A_Pin */
+  GPIO_InitStruct.Pin = PWM_BOT_B_Pin|PWM_TOP_B_Pin|PWM_TOP_A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : IN_BOT_1_Pin IN_BOT_2_Pin IN_TOP_2_Pin IN_TOP_1_Pin */
+  GPIO_InitStruct.Pin = IN_BOT_1_Pin|IN_BOT_2_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -325,7 +434,139 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+// Callback: timer has rolled over
+//ISR
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  // Check which version of the timer triggered this callback and toggle LED
+  if (htim == &htim2 )
+  {
+	//turn on GPIO pin for ISR timing test
+    HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_SET);
 
+    //calculate vout for bottom motor from current values
+    pwmVal_BOT = kp_BOT * err_BOT + kd_BOT * derivFilt_BOT + ki_BOT * integ_BOT;
+    //calculate vout for top motor from current values
+    pwmVal_TOP = kp_TOP * err_TOP + kd_TOP * derivFilt_TOP + ki_TOP * integ_TOP;
+    //move the motors
+    moveBottomMotor(pwmVal_BOT); //move the bottom motor
+    moveTopMotor(pwmVal_TOP); //move the top motor
+
+    //get the elapsed time
+    curr_time = __HAL_TIM_GET_COUNTER(&htim2);
+    time_diff = (curr_time - prev_time)*1000000;
+    prev_time = curr_time;
+    //show elapsed time
+    //uart_buf_len = sprintf(uart_buf, "%u us\r\n", time_diff);
+    //HAL_UART_Transmit(&huart2, (uint8_t *)uart_buf, uart_buf_len, 100);
+
+    //turn off GPIO pin for ISR timing test
+    HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_RESET);
+  }
+}
+
+void filter_coeffs(){
+  //compute filter coeff
+  for (int n = 1; n <= numSamples; n++) {
+    weightRaw[n - 1] = exp(-4.0 * (float)(n - 1) / (float)(numSamples - 1));
+    weightSum += weightRaw[n - 1];
+  }
+  for (int n = 0; n < numSamples; n++) {
+    weightNorm[n] = weightRaw[n] / weightSum;
+  }
+}
+
+void weightedFilter(float data_BOT,float data_TOP) {
+  filtSum_BOT -= dataFilt_BOT[sampleCount];
+  filtSum_TOP -= dataFilt_TOP[sampleCount];                     //remove oldest entry from sum
+  dataFilt_BOT[sampleCount] = data_BOT * weightNorm[sampleCount];  //update entry with new data
+  dataFilt_TOP[sampleCount] = data_TOP * weightNorm[sampleCount];
+  filtSum_BOT += dataFilt_BOT[sampleCount];
+  filtSum_TOP += dataFilt_TOP[sampleCount];
+  derivFilt_BOT = filtSum_BOT / (float)numSamples;
+  derivFilt_TOP = filtSum_TOP / (float)numSamples;
+  sampleCount = (sampleCount + 1) % numSamples;
+}
+
+void moveBottomMotor(float pwmVal) {
+  int motorSpeed = (int)fabs(pwmVal);
+  if (motorSpeed > 255) {  //constrain motorspeed value to max
+    motorSpeed = 255;
+  }
+
+  if (pwmVal > 0)  //going forward
+  {
+    if (mode == 0) {
+//
+//      analogWrite(PWM_BOT_A, motorSpeed);
+//      analogWrite(PWM_BOT_B, 0);
+    } else if (mode == 1) {
+//      analogWrite(PWM_BOT_A, motorSpeed);
+      HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_RESET);
+    }
+
+  } else if (pwmVal < 0)  //going backwards
+  {
+    if (mode == 0) {
+//      analogWrite(PWM_BOT_A, 0);
+//      analogWrite(PWM_BOT_B, motorSpeed);
+    } else if (mode == 1) {
+//      analogWrite(PWM_BOT_A, motorSpeed);
+      HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_SET);
+    }
+  } else  //stop motor when pwmVal is 0
+  {
+//    analogWrite(PWM_BOT_A, 0);
+    if (mode == 0) {
+//      analogWrite(PWM_BOT_B, 0);
+    }
+  }
+}
+
+void moveTopMotor(float pwmVal) {
+  int motorSpeed = (int)fabs(pwmVal);
+  if (motorSpeed > 255) {  //constrain motorspeed value to max
+    motorSpeed = 255;
+  }
+
+  if (pwmVal > 0)  //going forward
+  {
+    if (mode == 0) {
+//      analogWrite(PWM_TOP_A, motorSpeed);
+//      analogWrite(PWM_TOP_B, 0);
+    } else if (mode == 1) {
+//      analogWrite(PWM_TOP_A, motorSpeed);
+      HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_RESET);
+    }
+
+  } else if (pwmVal < 0)  //going backwards
+  {
+    if (mode == 0) {
+//      analogWrite(PWM_TOP_A, 0);
+//      analogWrite(PWM_TOP_B, motorSpeed);
+    } else if (mode == 1) {
+//      analogWrite(PWM_TOP_A, motorSpeed);
+      HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_SET);
+    }
+  } else  //stop motor when pwmVal is 0
+  {
+//    analogWrite(PWM_TOP_A, 0);
+    if (mode == 0) {
+//      analogWrite(PWM_TOP_B, 0);
+    }
+  }
+}
+
+void read_encoder_BOT() {
+  encoder_BOT_pos = 0;
+}
+void read_encoder_TOP() {
+  encoder_TOP_pos = 0;;
+}
 /* USER CODE END 4 */
 
 /**

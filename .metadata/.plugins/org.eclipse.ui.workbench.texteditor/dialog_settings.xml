@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Bot_Data"/>
+		<item key="selection" value="Mode"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="Bot_Data"/>
-			<item value="RX_Data"/>
-			<item value="HAL_SPI_RxCpltCallback"/>
-			<item value="hspi1"/>
-			<item value="error_handler"/>
-			<item value="main"/>
+			<item value="mode"/>
+			<item value="pos_top"/>
+			<item value="encoder_BOT_pos"/>
+			<item value="ANALOG"/>
+			<item value="DIGITAL"/>
+			<item value="HAL_TIM_PeriodElapsedCallback"/>
+			<item value="function"/>
+			<item value="user code begin"/>
+			<item value="count"/>
+			<item value="HAL_TIM_Base_Start_IT"/>
+			<item value="base_start"/>
+			<item value="start timer"/>
+			<item value="get"/>
+			<item value="HAL_TIM_"/>
+			<item value="__HAL_TIM_"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Bot_Data"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="-389"/>
-		<item key="DIALOG_Y_ORIGIN" value="329"/>
+		<item key="DIALOG_X_ORIGIN" value="9"/>
+		<item key="DIALOG_Y_ORIGIN" value="181"/>
 		<item key="DIALOG_WIDTH" value="414"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
