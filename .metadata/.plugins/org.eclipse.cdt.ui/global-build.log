@@ -2741,3 +2741,1597 @@ arm-none-eabi-size  Test_Serial.elf
    4676	     12	   1572	   6260	   1874	Test_Serial.elf
 Finished building: default.size.stdout
  
+16:21:08 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+16:21:09 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9604	     12	   1988	  11604	   2d54	one_motor.elf
+Finished building: default.size.stdout
+ 
+16:21:10 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.d" -MT"Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_it.d" -MT"Core/Src/stm32f1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f1xx.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f1xx.d" -MT"Core/Src/system_stm32f1xx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/system_stm32f1xx.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:158:3: error: 'prev_time' undeclared (first use in this function)
+  158 |   prev_time =  __HAL_TIM_GET_COUNTER(&htim2)*1000000;
+      |   ^~~~~~~~~
+../Core/Src/main.c:158:3: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c: In function 'moveBottomMotor':
+../Core/Src/main.c:446:25: error: 'IN_BOT_1_GPIO_Port' undeclared (first use in this function); did you mean 'PWM_BOT_B_GPIO_Port'?
+  446 |       HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_SET);
+      |                         ^~~~~~~~~~~~~~~~~~
+      |                         PWM_BOT_B_GPIO_Port
+../Core/Src/main.c:446:45: error: 'IN_BOT_1_Pin' undeclared (first use in this function); did you mean 'PWM_BOT_B_Pin'?
+  446 |       HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_SET);
+      |                                             ^~~~~~~~~~~~
+      |                                             PWM_BOT_B_Pin
+../Core/Src/main.c:447:25: error: 'IN_BOT_2_GPIO_Port' undeclared (first use in this function); did you mean 'PWM_BOT_B_GPIO_Port'?
+  447 |       HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_RESET);
+      |                         ^~~~~~~~~~~~~~~~~~
+      |                         PWM_BOT_B_GPIO_Port
+../Core/Src/main.c:447:45: error: 'IN_BOT_2_Pin' undeclared (first use in this function); did you mean 'PWM_BOT_B_Pin'?
+  447 |       HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_RESET);
+      |                                             ^~~~~~~~~~~~
+      |                                             PWM_BOT_B_Pin
+../Core/Src/main.c: In function 'moveTopMotor':
+../Core/Src/main.c:482:25: error: 'IN_TOP_1_GPIO_Port' undeclared (first use in this function); did you mean 'PWM_TOP_A_GPIO_Port'?
+  482 |       HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_SET);
+      |                         ^~~~~~~~~~~~~~~~~~
+      |                         PWM_TOP_A_GPIO_Port
+../Core/Src/main.c:482:45: error: 'IN_TOP_1_Pin' undeclared (first use in this function); did you mean 'PWM_TOP_B_Pin'?
+  482 |       HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_SET);
+      |                                             ^~~~~~~~~~~~
+      |                                             PWM_TOP_B_Pin
+../Core/Src/main.c:483:25: error: 'IN_TOP_2_GPIO_Port' undeclared (first use in this function); did you mean 'PWM_TOP_A_GPIO_Port'?
+  483 |       HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_RESET);
+      |                         ^~~~~~~~~~~~~~~~~~
+      |                         PWM_TOP_A_GPIO_Port
+../Core/Src/main.c:483:45: error: 'IN_TOP_2_Pin' undeclared (first use in this function); did you mean 'PWM_TOP_B_Pin'?
+  483 |       HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_RESET);
+      |                                             ^~~~~~~~~~~~
+      |                                             PWM_TOP_B_Pin
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+16:24:21 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+16:24:22 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9604	     12	   1988	  11604	   2d54	one_motor.elf
+Finished building: default.size.stdout
+ 
+16:24:22 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  14872	    148	   2196	  17216	   4340	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+17:27:50 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+17:27:51 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9604	     12	   1988	  11604	   2d54	one_motor.elf
+Finished building: default.size.stdout
+ 
+17:27:52 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:389:5: warning: implicit declaration of function 'moveMotors'; did you mean 'moveMotor'? [-Wimplicit-function-declaration]
+  389 |     moveMotors(moveValue_BOT,moveValue_TOP);
+      |     ^~~~~~~~~~
+      |     moveMotor
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:429:6: warning: conflicting types for 'moveMotors'; have 'void(float,  float)'
+  429 | void moveMotors(float moveValue_BOT,float moveValue_TOP){
+      |      ^~~~~~~~~~
+../Core/Src/main.c:389:5: note: previous implicit declaration of 'moveMotors' with type 'void(float,  float)'
+  389 |     moveMotors(moveValue_BOT,moveValue_TOP);
+      |     ^~~~~~~~~~
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15264	    148	   2196	  17608	   44c8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+17:49:32 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+17:49:33 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9604	     12	   1988	  11604	   2d54	one_motor.elf
+Finished building: default.size.stdout
+ 
+17:49:33 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+18:17:37 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:17:37 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:16: warning: unused variable 'currT' [-Wunused-variable]
+  117 |           long currT = TIM2->CNT;
+      |                ^~~~~
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:17:38 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:17:54 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:18:23 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:19:09 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:19:10 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:121:16: warning: unused variable 'currT' [-Wunused-variable]
+  121 |           long currT = TIM2->CNT;
+      |                ^~~~~
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:19:11 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:19:19 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:19:32 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9744	     12	   2060	  11816	   2e28	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:21:14 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:21:15 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:16: warning: unused variable 'currT' [-Wunused-variable]
+  125 |           long currT = TIM2->CNT;
+      |                ^~~~~
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2060	  11948	   2eac	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:21:16 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:21:24 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2060	  11948	   2eac	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:21:38 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2060	  11948	   2eac	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:22:03 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2060	  11948	   2eac	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:27:19 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:27:19 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:16: warning: unused variable 'currT' [-Wunused-variable]
+  125 |           long currT = __HAL_TIM_GET_COUNTER(&htim2);
+      |                ^~~~~
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9880	     12	   2060	  11952	   2eb0	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:27:20 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:27:35 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9880	     12	   2060	  11952	   2eb0	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:27:53 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9880	     12	   2060	  11952	   2eb0	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:37:24 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:37:24 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9888	     12	   2072	  11972	   2ec4	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:37:26 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+18:37:31 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9888	     12	   2072	  11972	   2ec4	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:37:51 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9888	     12	   2072	  11972	   2ec4	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:42:48 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9916	     12	   2080	  12008	   2ee8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:46:18 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9916	     12	   2080	  12008	   2ee8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:47:44 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9916	     12	   2080	  12008	   2ee8	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:53:46 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:53:46 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10828	     12	   2088	  12928	   3280	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:53:47 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:53:55 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10828	     12	   2088	  12928	   3280	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:54:39 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:54:40 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10852	     12	   2096	  12960	   32a0	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:54:41 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:54:47 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10852	     12	   2096	  12960	   32a0	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:58:09 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+18:58:10 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10848	     12	   2096	  12956	   329c	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+18:58:11 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+18:58:23 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10848	     12	   2096	  12956	   329c	one_motor.elf
+Finished building: default.size.stdout
+ 
+18:58:40 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10848	     12	   2096	  12956	   329c	one_motor.elf
+Finished building: default.size.stdout
+ 
+19:05:30 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+19:05:31 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10860	     12	   2096	  12968	   32a8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+19:05:32 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+19:05:41 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10860	     12	   2096	  12968	   32a8	one_motor.elf
+Finished building: default.size.stdout
+ 
+19:08:32 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+19:08:32 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:129:15: error: 'curr_time' undeclared (first use in this function)
+  129 |           if (curr_time >= prev_time) {
+      |               ^~~~~~~~~
+../Core/Src/main.c:129:15: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:129:28: error: 'prev_time' undeclared (first use in this function)
+  129 |           if (curr_time >= prev_time) {
+      |                            ^~~~~~~~~
+../Core/Src/main.c:130:15: error: 'time_diff' undeclared (first use in this function)
+  130 |               time_diff = (curr_time - prev_time)/1000;
+      |               ^~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+19:08:33 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+19:09:47 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+19:09:47 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:130:15: error: 'time_diff' undeclared (first use in this function)
+  130 |               time_diff = (currT - prevT)/1000;
+      |               ^~~~~~~~~
+../Core/Src/main.c:130:15: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:133:49: error: 'curcurrTr_time' undeclared (first use in this function)
+  133 |               time_diff = (UINT32_MAX - prevT + curcurrTr_time + 1)/1000;
+      |                                                 ^~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+19:09:48 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+19:10:07 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+19:10:08 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10968	     12	   2096	  13076	   3314	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+19:10:09 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+19:10:16 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10968	     12	   2096	  13076	   3314	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:31:14 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:31:15 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9864	     12	   2060	  11936	   2ea0	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:31:16 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:31:27 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9864	     12	   2060	  11936	   2ea0	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:32:48 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:32:49 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9892	     12	   2072	  11976	   2ec8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:32:50 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:32:53 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9892	     12	   2072	  11976	   2ec8	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:46:03 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:46:04 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_it.d" -MT"Core/Src/stm32f1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_it.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:46:05 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:46:14 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:46:35 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:49:46 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:49:48 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:126:1: error: 'j' undeclared (first use in this function)
+  126 | j//       prevT = __HAL_TIM_GET_COUNTER(&htim2);
+      | ^
+../Core/Src/main.c:126:1: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:126:2: error: expected ';' before '}' token
+  126 | j//       prevT = __HAL_TIM_GET_COUNTER(&htim2);
+      |  ^
+      |  ;
+......
+  163 |   }
+      |   ~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+20:49:49 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:49:53 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:126:1: error: 'j' undeclared (first use in this function)
+  126 | j//       prevT = __HAL_TIM_GET_COUNTER(&htim2);
+      | ^
+../Core/Src/main.c:126:1: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:126:2: error: expected ';' before '}' token
+  126 | j//       prevT = __HAL_TIM_GET_COUNTER(&htim2);
+      |  ^
+      |  ;
+......
+  163 |   }
+      |   ~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+20:50:01 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:50:02 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:50:06 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:50:11 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:50:39 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:52:25 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9848	     12	   2060	  11920	   2e90	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:54:23 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:54:25 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2072	  11960	   2eb8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:54:29 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:54:40 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2072	  11960	   2eb8	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:55:11 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9876	     12	   2072	  11960	   2eb8	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:56:27 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:56:29 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9784	     12	   2072	  11868	   2e5c	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:56:31 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:56:41 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9784	     12	   2072	  11868	   2e5c	one_motor.elf
+Finished building: default.size.stdout
+ 
+20:57:29 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+20:57:31 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9892	     12	   2072	  11976	   2ec8	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+20:57:34 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+20:57:40 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9892	     12	   2072	  11976	   2ec8	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:00:10 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:00:11 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9904	     12	   2072	  11988	   2ed4	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:00:15 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:00:21 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9904	     12	   2072	  11988	   2ed4	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:01:07 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:01:08 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9916	     12	   2072	  12000	   2ee0	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:01:12 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:01:20 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9916	     12	   2072	  12000	   2ee0	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:04:24 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:04:26 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+   9984	     12	   2072	  12068	   2f24	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:04:29 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:04:40 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9984	     12	   2072	  12068	   2f24	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:06:05 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:06:06 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_it.d" -MT"Core/Src/stm32f1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_it.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10108	     12	   2072	  12192	   2fa0	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:06:09 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:06:37 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:06:39 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:06:41 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:06:54 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:07:07 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:07:08 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:07:09 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15248	    148	   2196	  17592	   44b8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:20:46 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:20:47 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10004	     12	   2072	  12088	   2f38	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:20:49 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15328	    148	   2196	  17672	   4508	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+21:20:57 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10004	     12	   2072	  12088	   2f38	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:21:28 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:21:29 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "one_motor.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\one_motor\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="one_motor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: one_motor.elf
+ 
+arm-none-eabi-size  one_motor.elf 
+arm-none-eabi-objdump -h -S one_motor.elf  > "one_motor.list"
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+Finished building: one_motor.list
+ 
+21:21:33 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15328	    148	   2196	  17672	   4508	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:21:43 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:21:45 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:21:45 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15328	    148	   2196	  17672	   4508	robot-controller.elf
+Finished building: default.size.stdout
+ 
+21:21:55 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:31:16 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:31:18 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:31:19 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_it.d" -MT"Core/Src/stm32f1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_it.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15496	    148	   2196	  17840	   45b0	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+21:42:13 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:42:14 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:42:15 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'read_encoder_BOT':
+../Core/Src/main.c:509:38: error: 'BIT1_GPIO_Port' undeclared (first use in this function); did you mean 'DEC1_GPIO_Port'?
+  509 |     binaryValue |= (HAL_GPIO_ReadPin(BIT1_GPIO_Port, BIT1_Pin) << 0);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC1_GPIO_Port
+../Core/Src/main.c:509:38: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:509:54: error: 'BIT1_Pin' undeclared (first use in this function)
+  509 |     binaryValue |= (HAL_GPIO_ReadPin(BIT1_GPIO_Port, BIT1_Pin) << 0);
+      |                                                      ^~~~~~~~
+../Core/Src/main.c:510:38: error: 'BIT2_GPIO_Port' undeclared (first use in this function); did you mean 'DEC2_GPIO_Port'?
+  510 |     binaryValue |= (HAL_GPIO_ReadPin(BIT2_GPIO_Port, BIT2_Pin) << 1);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC2_GPIO_Port
+../Core/Src/main.c:510:54: error: 'BIT2_Pin' undeclared (first use in this function)
+  510 |     binaryValue |= (HAL_GPIO_ReadPin(BIT2_GPIO_Port, BIT2_Pin) << 1);
+      |                                                      ^~~~~~~~
+../Core/Src/main.c:511:38: error: 'BIT3_GPIO_Port' undeclared (first use in this function); did you mean 'DEC3_GPIO_Port'?
+  511 |     binaryValue |= (HAL_GPIO_ReadPin(BIT3_GPIO_Port, BIT3_Pin) << 2);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC3_GPIO_Port
+../Core/Src/main.c:511:54: error: 'BIT3_Pin' undeclared (first use in this function)
+  511 |     binaryValue |= (HAL_GPIO_ReadPin(BIT3_GPIO_Port, BIT3_Pin) << 2);
+      |                                                      ^~~~~~~~
+../Core/Src/main.c:512:38: error: 'BIT4_GPIO_Port' undeclared (first use in this function); did you mean 'DEC4_GPIO_Port'?
+  512 |     binaryValue |= (HAL_GPIO_ReadPin(BIT4_GPIO_Port, BIT4_Pin) << 3);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC4_GPIO_Port
+../Core/Src/main.c:512:54: error: 'BIT4_Pin' undeclared (first use in this function)
+  512 |     binaryValue |= (HAL_GPIO_ReadPin(BIT4_GPIO_Port, BIT4_Pin) << 3);
+      |                                                      ^~~~~~~~
+../Core/Src/main.c:513:38: error: 'BIT5_GPIO_Port' undeclared (first use in this function); did you mean 'DEC5_GPIO_Port'?
+  513 |     binaryValue |= (HAL_GPIO_ReadPin(BIT5_GPIO_Port, BIT5_Pin) << 4);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC5_GPIO_Port
+../Core/Src/main.c:513:54: error: 'BIT5_Pin' undeclared (first use in this function)
+  513 |     binaryValue |= (HAL_GPIO_ReadPin(BIT5_GPIO_Port, BIT5_Pin) << 4);
+      |                                                      ^~~~~~~~
+../Core/Src/main.c:514:38: error: 'BIT6_GPIO_Port' undeclared (first use in this function); did you mean 'DEC6_GPIO_Port'?
+  514 |     binaryValue |= (HAL_GPIO_ReadPin(BIT6_GPIO_Port, BIT6_Pin) << 5);
+      |                                      ^~~~~~~~~~~~~~
+      |                                      DEC6_GPIO_Port
+../Core/Src/main.c:514:54: error: 'BIT6_Pin' undeclared (first use in this function)
+  514 |     binaryValue |= (HAL_GPIO_ReadPin(BIT6_GPIO_Port, BIT6_Pin) << 5);
+      |                                                      ^~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:43:19 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+21:43:20 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+21:43:20 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15712	    148	   2196	  18056	   4688	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+22:18:40 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+22:18:41 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+22:18:42 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_hal_msp.d" -MT"Core/Src/stm32f1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f1xx_it.d" -MT"Core/Src/stm32f1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f1xx_it.o"
+../Core/Src/main.c:91:34: warning: implicit declaration of function 'micros' [-Wimplicit-function-declaration]
+   91 | unsigned long _lastIncReadTime = micros();
+      |                                  ^~~~~~
+../Core/Src/main.c:91:34: error: initializer element is not constant
+../Core/Src/main.c:92:34: error: initializer element is not constant
+   92 | unsigned long _lastDecReadTime = micros();
+      |                                  ^~~~~~
+../Core/Src/main.c:110:6: warning: conflicting types for 'micros'; have 'void(void)'
+  110 | void micros(void);
+      |      ^~~~~~
+../Core/Src/main.c:91:34: note: previous implicit declaration of 'micros' with type 'void(void)'
+   91 | unsigned long _lastIncReadTime = micros();
+      |                                  ^~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:183:24: error: void value not ignored as it ought to be
+  183 |           long currT = micros();//gets the current time
+      |                        ^~~~~~
+../Core/Src/main.c: In function 'read_encoder_TOP':
+../Core/Src/main.c:594:15: error: void value not ignored as it ought to be
+  594 |     current_T = micros();
+      |               ^
+../Core/Src/main.c:604:22: error: void value not ignored as it ought to be
+  604 |     _lastIncReadTime = micros();
+      |                      ^
+../Core/Src/main.c:592:32: warning: unused variable 'deltaT_Dec' [-Wunused-variable]
+  592 |     int current_T, deltaT_Inc, deltaT_Dec;
+      |                                ^~~~~~~~~~
+../Core/Src/main.c:611:5: error: 'current_T' undeclared (first use in this function)
+  611 |     current_T = micros();
+      |     ^~~~~~~~~
+../Core/Src/main.c:611:5: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:613:17: error: 'deltaT_Dec' undeclared (first use in this function); did you mean 'deltaT'?
+  613 |                 deltaT_Dec = (int)(current_T - _lastDecReadTime);//gets the change in time from the last measurement
+      |                 ^~~~~~~~~~
+      |                 deltaT
+../Core/Src/main.c:620:22: error: void value not ignored as it ought to be
+  620 |     _lastDecReadTime = micros();
+      |                      ^
+In file included from ../Core/Inc/stm32f1xx_hal_conf.h:334,
+                 from ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Core/Src/main.c: In function 'micros':
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:1290:67: warning: 'return' with a value, in function returning void [-Wreturn-type]
+ 1290 | #define __HAL_TIM_GET_COUNTER(__HANDLE__)  ((__HANDLE__)->Instance->CNT)
+      |                                            ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../Core/Src/main.c:627:16: note: in expansion of macro '__HAL_TIM_GET_COUNTER'
+  627 |         return __HAL_TIM_GET_COUNTER(&htim3);
+      |                ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:626:6: note: declared here
+  626 | void micros(void){
+      |      ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+22:19:48 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+22:19:49 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+22:19:50 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'read_encoder_TOP':
+../Core/Src/main.c:592:32: warning: unused variable 'deltaT_Dec' [-Wunused-variable]
+  592 |     int current_T, deltaT_Inc, deltaT_Dec;
+      |                                ^~~~~~~~~~
+../Core/Src/main.c:611:5: error: 'current_T' undeclared (first use in this function)
+  611 |     current_T = micros();
+      |     ^~~~~~~~~
+../Core/Src/main.c:611:5: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:613:17: error: 'deltaT_Dec' undeclared (first use in this function); did you mean 'deltaT'?
+  613 |                 deltaT_Dec = (int)(current_T - _lastDecReadTime);//gets the change in time from the last measurement
+      |                 ^~~~~~~~~~
+      |                 deltaT
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+22:20:43 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+22:20:44 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+22:20:44 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15960	    148	   2268	  18376	   47c8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+22:21:40 **** Incremental Build of configuration Debug for project Test_Serial ****
+make -j8 all 
+arm-none-eabi-size  Test_Serial.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4676	     12	   1572	   6260	   1874	Test_Serial.elf
+Finished building: default.size.stdout
+ 
+22:21:42 **** Incremental Build of configuration Debug for project one_motor ****
+make -j8 all 
+arm-none-eabi-size  one_motor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10136	     12	   2072	  12220	   2fbc	one_motor.elf
+Finished building: default.size.stdout
+ 
+22:21:43 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "robot-controller.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\midor\Documents\ELEC391\laser-robot\robot-controller\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot-controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: robot-controller.elf
+ 
+arm-none-eabi-size  robot-controller.elf 
+arm-none-eabi-objdump -h -S robot-controller.elf  > "robot-controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  15960	    148	   2268	  18376	   47c8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: robot-controller.list
+ 
+22:22:46 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15960	    148	   2268	  18376	   47c8	robot-controller.elf
+Finished building: default.size.stdout
+ 
+22:23:10 **** Incremental Build of configuration Debug for project robot-controller ****
+make -j8 all 
+arm-none-eabi-size  robot-controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15960	    148	   2268	  18376	   47c8	robot-controller.elf
+Finished building: default.size.stdout
+ 

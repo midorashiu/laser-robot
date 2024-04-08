@@ -41,55 +41,41 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi1;
-
 TIM_HandleTypeDef htim2;
-
-UART_HandleTypeDef huart2;
+TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
-int mode = 1;
-
-char uart_buf[50];
-int uart_buf_len;
-long double prev_time;
-long double curr_time;
-long double time_diff;
-
 //------------------------------PID------------------------------------------//
-long prevT = 0;
+long prevT = 0; //keeps track of the time of the previous measurement
 
 // Bottom motor PID constants
-float kp_BOT = 0.069207;//bottom motor proportional constant
-float ki_BOT = 0.026327;//bottom motor integral constant
-float kd_BOT = 0.039141;//bottom motor derivative constant
+float kp_BOT = 1.2;//bottom motor proportional constant
+float ki_BOT = 0;//bottom motor integral constant
+float kd_BOT = 0;//bottom motor derivative constant
 // Top motor PID constants
-float kp_TOP = 0.069207;//top motor proportional constant
-float ki_TOP = 0.026327;//top motor integral constant
-float kd_TOP = 0.039141;//top motor derivative constant
+float kp_TOP = 1.2;//top motor proportional constant
+float ki_TOP = 0;//top motor integral constant
+float kd_TOP = 0;//top motor derivative constant
 
-//bottom motor PID variables
-int pos_BOT = 0; //bottom motor position
-int err_BOT; //bottom motor position error
-float errprev_BOT = 0; //bottom motor previous position error
-float deriv_BOT; //bottom motor derivative of position
-float derivFilt_BOT; //bottom motor filtered derivative of position
-float integ_BOT = 0; //bottom motor integral of position
-float pwmVal_BOT; //bottom motor pwm value
-//top motor PID variables
-int pos_TOP = 0; //top motor position
-int err_TOP; //top modataFilttor position error
-float errprev_TOP = 0; //top motor previous position error
-float deriv_TOP; //top motor derivative of position
-float derivFilt_TOP; //top motor filtered derivative of position
-float integ_TOP = 0; //top motor integral of position
-float pwmVal_TOP; //top motor pwm value
+// motor PID variables
+int pos_BOT, pos_TOP = 0; //motor position
+int err_BOT, err_TOP; // motor position error
+float errprev_BOT,errprev_TOP = 0; // motor previous position error
+float deriv_BOT,deriv_TOP; // motor derivative of position
+float derivFilt_BOT,derivFilt_TOP; // motor filtered derivative of position
+float integ_BOT,integ_TOP = 0; // motor integral of position
+float moveValue_BOT,moveValue_TOP; // motor move by value
 
+float deltaT; //time difference
+
+//------------------------------DRAWING------------------------------------------//
 //drawing target shape of square
 int state = 0; //state of the shape
-int x_coords[4] = {0,0,10,10}; //x coordinates for bottom motor
-int y_coords[4] = {0,10,10,0}; //y coordinates for top motor
+int x_coords[4] = {0,0,7,7}; //x coordinates for bottom motor based on counts
+int y_coords[4] = {0,1,1,0}; //y coordinates for top motor based on counts
 
+//------------------------------FILTERING------------------------------------------//
 //weighted sum filter variables
 #define numSamples 5  //number of samples for filtering
 float weightRaw[numSamples]; //raw weights
@@ -98,29 +84,30 @@ float weightSum = 0; //sum of the weights
 int sampleCount = 0; //keeps track of the number of samples
 //bottom motor filter
 float dataFilt_BOT[numSamples]; //filtered data of the bottom motor
-float filtSum_BOT = 0; //sum of filtered data bottom motor
-//top motor filter
 float dataFilt_TOP[numSamples];//filtered data of the top motor
-float filtSum_TOP = 0; //sum of filtered data top motor
+float filtSum_BOT,filtSum_TOP = 0; //sum of filtered data motor
 
-int encoder_BOT_pos;
-int encoder_TOP_pos;
-
+//------------------------------DECODER------------------------------------------//
+unsigned long _lastIncReadTime;
+unsigned long _lastDecReadTime;
+int _pauseLength = 25000;
+int _fastIncrement = 1;
+volatile int encoder_TOP_pos = 0;//the position of the top motor based on the decoder
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
-static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM4_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
-void filter_coeffs(void);
-void weightedFilter(float data_BOT,float data_TOP);
-void moveBottomMotor(float pwmVal);
-void moveTopMotor(float pwmVal);
-void read_encoder_BOT(void);
+void filter_coeffs(void); //calculates the filter coefficients for the weighted filter
+void weightedFilter(float data_BOT,float data_TOP); //filters the derivative of the position error for bot and top motor
+void moveMotors(float moveValue_BOT,float moveValue_TOP); //moves the motors based on the PID values
+uint8_t read_encoder_BOT(void);
 void read_encoder_TOP(void);
+long micros(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -157,27 +144,23 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
-  MX_USART2_UART_Init();
   MX_TIM2_Init();
-
+  MX_TIM4_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  //printing to PuTTy
-  //uart_buf_len = sprintf(uart_buf, "Timer Test\r\n");
-  //HAL_UART_Transmit(&huart2, (uint8_t *)uart_buf, uart_buf_len, 100);
-
-  //Start timer
+  //Start timer of the ISR
   HAL_TIM_Base_Start_IT(&htim2);
-
-  //HAL_TIM_Base_Start(&htim2);
-  prev_time =  __HAL_TIM_GET_COUNTER(&htim2)*1000000;
 
   filter_coeffs(); //calculate the coefficients for the weighted sum filter
   memset(dataFilt_BOT, 0, sizeof(dataFilt_BOT)); //reset filtered data
   memset(dataFilt_TOP, 0, sizeof(dataFilt_TOP)); //reset filtered data
-  //turn laser on
-  HAL_GPIO_WritePin(LASER_GPIO_Port, LASER_Pin, GPIO_PIN_SET);
+
+  //sets timer 2 to read microseconds
+  __HAL_RCC_TIM2_CLK_ENABLE();
+  TIM2->PSC = HAL_RCC_GetPCLK1Freq()/1000000 - 1;
+  TIM2->CR1 = TIM_CR1_CEN;
+  __HAL_TIM_SET_COUNTER(&htim2,0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -187,27 +170,44 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  // time difference
-	  long currT = __HAL_TIM_GET_COUNTER(&htim2);//micros(); CHANGE AFTER DEBUG
-	  float deltaT = ((float)(currT - prevT)) / (1.0e6);
-	  prevT = currT;
 
-	  //move to the next vertex when there is a small position error
-	  if ((err_BOT<10) && (err_BOT<10)){
-		if (state==3)state = 0;//restart the shape
-		else state++;
+	  //move to the next vertex when there is a small position error in both motors
+	  if ((err_BOT<1) && (err_BOT<1)){
+		if (state==3){
+			state = 0;//restart the shape
+		}
+		else state++; //increment the state to go to the next vertex
 	  }
-	  //continuously get values for the motors
-	  pos_BOT = encoder_BOT_pos;
-	  pos_TOP = encoder_TOP_pos;
 
-	  err_BOT = pos_BOT - x_coords[state];                  // error
-	  err_TOP = pos_TOP - y_coords[state];
-	  deriv_BOT = (err_BOT - errprev_BOT) / (deltaT);  // derivative
-	  deriv_TOP = (err_TOP - errprev_TOP) / (deltaT);
+	  // time difference for the calculation of the position error derivative and integral
+	  long currT = micros();//gets the current time
+
+	  if (currT >= prevT) {// No overflow occurred
+	      deltaT = ((float)(currT - prevT)) / (1.0e6);//gets the change in time from the last measurement
+	  } else {// Overflow occurred
+		  deltaT = ((float)((UINT16_MAX - prevT) + currT + 1)) / (1.0e6);
+	  }
+	  prevT = currT; //updates the previous time to the current time for the next measurement
+
+	  //continuously get position values for the motors
+	  pos_BOT = (int)read_encoder_BOT; //get current position from the decoder for the bot motor
+	  pos_TOP = encoder_TOP_pos; //get current position from the decoder for the top motor
+
+	  //calculate the error between the current position and the desired position
+	  err_BOT = pos_BOT - x_coords[state]; //position error of the bot motor
+	  err_TOP = pos_TOP - y_coords[state]; //position error of the top motor
+
+	  //calculate the derivative of the position error using the previous position error and the change in time
+	  deriv_BOT = (err_BOT - errprev_BOT) / (deltaT); // derivative of position error for the bot motor
+	  deriv_TOP = (err_TOP - errprev_TOP) / (deltaT); // derivative of position error for the top motor
+	  //filters the derivative of the position error for the top and bottom motor
 	  weightedFilter(deriv_BOT, deriv_TOP);
+
+	  //calculate the integral of the position error using the previous integral and the position error multiplied by the change in time
 	  integ_BOT = integ_BOT + err_BOT * deltaT;  // integral
 	  integ_TOP = integ_TOP + err_TOP * deltaT;
+
+	  //updates the previous position error with the current one to prepare for the next measurement
 	  errprev_BOT = err_BOT;
 	  errprev_TOP = err_TOP;
   }
@@ -232,7 +232,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -247,48 +247,10 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief SPI1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI1_Init(void)
-{
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
-
 }
 
 /**
@@ -310,7 +272,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 72-1;
+  htim2.Init.Prescaler = 48-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 108-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -337,35 +299,118 @@ static void MX_TIM2_Init(void)
 }
 
 /**
-  * @brief USART2 Initialization Function
+  * @brief TIM3 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART2_UART_Init(void)
+static void MX_TIM3_Init(void)
 {
 
-  /* USER CODE BEGIN USART2_Init 0 */
+  /* USER CODE BEGIN TIM3_Init 0 */
 
-  /* USER CODE END USART2_Init 0 */
+  /* USER CODE END TIM3_Init 0 */
 
-  /* USER CODE BEGIN USART2_Init 1 */
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 65535;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN USART2_Init 2 */
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
 
-  /* USER CODE END USART2_Init 2 */
+  /* USER CODE END TIM3_Init 2 */
+
+}
+
+/**
+  * @brief TIM4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM4_Init(void)
+{
+
+  /* USER CODE BEGIN TIM4_Init 0 */
+
+  /* USER CODE END TIM4_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM4_Init 1 */
+
+  /* USER CODE END TIM4_Init 1 */
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 48-1;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 50-1;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM4_Init 2 */
+
+  /* USER CODE END TIM4_Init 2 */
+  HAL_TIM_MspPostInit(&htim4);
 
 }
 
@@ -381,29 +426,26 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LASER_GPIO_Port, LASER_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, CS_BOT_Pin|CS_TOP_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, IN_BOT_1_Pin|IN_BOT_2_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pins : LASER_Pin CS_BOT_Pin CS_TOP_Pin */
-  GPIO_InitStruct.Pin = LASER_Pin|CS_BOT_Pin|CS_TOP_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /*Configure GPIO pins : DEC1_Pin DEC2_Pin DEC3_Pin DEC4_Pin
+                           DEC5_Pin DEC6_Pin */
+  GPIO_InitStruct.Pin = DEC1_Pin|DEC2_Pin|DEC3_Pin|DEC4_Pin
+                          |DEC5_Pin|DEC6_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ENC_A_Pin ENC_B_Pin */
+  GPIO_InitStruct.Pin = ENC_A_Pin|ENC_B_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ISR_DUTY_Pin */
   GPIO_InitStruct.Pin = ISR_DUTY_Pin;
@@ -412,161 +454,178 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(ISR_DUTY_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PWM_BOT_A_Pin */
-  GPIO_InitStruct.Pin = PWM_BOT_A_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  HAL_GPIO_Init(PWM_BOT_A_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PWM_BOT_B_Pin PWM_TOP_B_Pin PWM_TOP_A_Pin */
-  GPIO_InitStruct.Pin = PWM_BOT_B_Pin|PWM_TOP_B_Pin|PWM_TOP_A_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : IN_BOT_1_Pin IN_BOT_2_Pin IN_TOP_2_Pin IN_TOP_1_Pin */
-  GPIO_InitStruct.Pin = IN_BOT_1_Pin|IN_BOT_2_Pin|IN_TOP_2_Pin|IN_TOP_1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-// Callback: timer has rolled over
-//ISR
+
+//HAL_TIM_PeriodElapsedCallback: Interrupt service routine that computes the PID value and updates the position of the motors
+//htim: the timer that we're using for the ISR, timer2
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  // Check which version of the timer triggered this callback and toggle LED
-  if (htim == &htim2 )
+  if (htim == &htim2 ) //check which timer was triggered
   {
 	//turn on GPIO pin for ISR timing test
     HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_SET);
 
-    //calculate vout for bottom motor from current values
-    pwmVal_BOT = kp_BOT * err_BOT + kd_BOT * derivFilt_BOT + ki_BOT * integ_BOT;
-    //calculate vout for top motor from current values
-    pwmVal_TOP = kp_TOP * err_TOP + kd_TOP * derivFilt_TOP + ki_TOP * integ_TOP;
+    //calculate the amount to move for bottom motor from current values
+    moveValue_BOT = kp_BOT * err_BOT + kd_BOT * derivFilt_BOT + ki_BOT * integ_BOT;
+    //calculate  the amount to move for top motor from current values
+    moveValue_TOP = kp_TOP * err_TOP + kd_TOP * derivFilt_TOP + ki_TOP * integ_TOP;
     //move the motors
-    moveBottomMotor(pwmVal_BOT); //move the bottom motor
-    moveTopMotor(pwmVal_TOP); //move the top motor
-
-    //get the elapsed time
-    curr_time = __HAL_TIM_GET_COUNTER(&htim2);
-    time_diff = (curr_time - prev_time)*1000000;
-    prev_time = curr_time;
-    //show elapsed time
-    //uart_buf_len = sprintf(uart_buf, "%u us\r\n", time_diff);
-    //HAL_UART_Transmit(&huart2, (uint8_t *)uart_buf, uart_buf_len, 100);
-
+    moveMotors(moveValue_BOT,moveValue_TOP);
     //turn off GPIO pin for ISR timing test
     HAL_GPIO_WritePin(ISR_DUTY_GPIO_Port, ISR_DUTY_Pin, GPIO_PIN_RESET);
   }
 }
 
-void filter_coeffs(){
-  //compute filter coeff
-  for (int n = 1; n <= numSamples; n++) {
-    weightRaw[n - 1] = exp(-4.0 * (float)(n - 1) / (float)(numSamples - 1));
-    weightSum += weightRaw[n - 1];
+//filter_coeffs: computes the filter coefficients needed for the weighted filter
+void filter_coeffs(void){
+  for (int n = 1; n <= numSamples; n++) { //calculates the coefficient for each sample number
+    //gives the raw coefficient based on the sample number and number of samples
+	weightRaw[n - 1] = exp(-4.0 * (float)(n - 1) / (float)(numSamples - 1));
+    weightSum += weightRaw[n - 1]; //finds the sum of all the coefficients
   }
+  //normalizes each of the coefficients with the sum of the coefficients
   for (int n = 0; n < numSamples; n++) {
     weightNorm[n] = weightRaw[n] / weightSum;
   }
 }
 
+//weightedFilter: a running average filter that filters the derivative of the position error
+//data_BOT, data_TOP: the captured derivative of the position for the bottom motor and the top motor
 void weightedFilter(float data_BOT,float data_TOP) {
-  filtSum_BOT -= dataFilt_BOT[sampleCount];
-  filtSum_TOP -= dataFilt_TOP[sampleCount];                     //remove oldest entry from sum
-  dataFilt_BOT[sampleCount] = data_BOT * weightNorm[sampleCount];  //update entry with new data
+  //remove oldest entry of the filtered data from sum to make room for new entry
+  filtSum_BOT -= dataFilt_BOT[sampleCount]; //bottom motor filter
+  filtSum_TOP -= dataFilt_TOP[sampleCount]; //top motor filter
+  //update new entry empty spot with new data multiplied by its weight
+  dataFilt_BOT[sampleCount] = data_BOT * weightNorm[sampleCount];
   dataFilt_TOP[sampleCount] = data_TOP * weightNorm[sampleCount];
+  //add the new entry to the running sum
   filtSum_BOT += dataFilt_BOT[sampleCount];
   filtSum_TOP += dataFilt_TOP[sampleCount];
+  //calculate the filtered data with the running sum and the total amount of samples
   derivFilt_BOT = filtSum_BOT / (float)numSamples;
   derivFilt_TOP = filtSum_TOP / (float)numSamples;
+  //increment the sample count, which goes back to zero once we hit the maximum amount of samples
   sampleCount = (sampleCount + 1) % numSamples;
 }
 
-void moveBottomMotor(float pwmVal) {
-  int motorSpeed = (int)fabs(pwmVal);
-  if (motorSpeed > 255) {  //constrain motorspeed value to max
-    motorSpeed = 255;
+//moveMotors: moves the motors to the desired location by controlling pwm to motors
+//moveValue_BOT, moveValue_TOP: takes values from the PID loop
+void moveMotors(float moveValue_BOT,float moveValue_TOP){
+	//takes the float value of the PID, makes it positive and maps it to a CCR value
+	//max counts bottom motor is 7 and max counts top motor is 1
+	//CCR value from 0-50 with 50 being 100% duty cycle
+	//count of 1 corresponds to CCR of 10 and 20% duty cycle, which is min duty cycle for motor to move
+	int motorSpeed_BOT = (uint32_t)fabs(moveValue_BOT*10);
+	int motorSpeed_TOP = (uint32_t)fabs(moveValue_TOP*10);
+	//constrain the CCR to be below 50 and 100% duty cycle
+	if (motorSpeed_BOT > 50){
+		motorSpeed_BOT = 50;
+	}
+	if (motorSpeed_TOP > 50){
+		motorSpeed_TOP = 50;
+	}
+	//move the bottom motor
+	if (moveValue_BOT>0){ //going forwards
+		TIM4->CCR1 = motorSpeed_BOT; //PWM_BOT_A
+		TIM4->CCR2 = 0; //PWM_BOT_B
+	}
+	else if(moveValue_BOT<0){ //going backwards
+		TIM4->CCR1 = 0; //PWM_BOT_A
+		TIM4->CCR2 = motorSpeed_BOT; //PWM_BOT_B
+	}
+	else{ //not moving
+		TIM4->CCR1 = 0; //PWM_BOT_A
+		TIM4->CCR2 = 0; //PWM_BOT_B
+	}
+	//move the top motor
+	if (moveValue_TOP>0){ //going forwards
+		TIM4->CCR3 = motorSpeed_TOP; //PWM_TOP_A
+		TIM4->CCR4 = 0; //PWM_TOP_B
+	}
+	else if(moveValue_TOP<0){ //going backwards
+		TIM4->CCR3 = 0; //PWM_TOP_A
+		TIM4->CCR4 = motorSpeed_TOP; //PWM_TOP_B
+	}
+	else{ //not moving
+		TIM4->CCR3 = 0; //PWM_TOP_A
+		TIM4->CCR4 = 0;//PWM_TOP_B
+	}
+}
+
+//reads the decoder circuit using pins
+uint8_t read_encoder_BOT(void) {
+    uint8_t binaryValue = 0;
+
+    // Read the state of each GPIO pin and update the binary value
+    binaryValue |= (HAL_GPIO_ReadPin(DEC1_GPIO_Port, DEC1_Pin) << 0);
+    binaryValue |= (HAL_GPIO_ReadPin(DEC2_GPIO_Port, DEC2_Pin) << 1);
+    binaryValue |= (HAL_GPIO_ReadPin(DEC3_GPIO_Port, DEC3_Pin) << 2);
+    binaryValue |= (HAL_GPIO_ReadPin(DEC4_GPIO_Port, DEC4_Pin) << 3);
+    binaryValue |= (HAL_GPIO_ReadPin(DEC5_GPIO_Port, DEC5_Pin) << 4);
+    binaryValue |= (HAL_GPIO_ReadPin(DEC6_GPIO_Port, DEC6_Pin) << 5);
+
+    return binaryValue;
+}
+
+void read_encoder_TOP(void) {
+  // Encoder interrupt routine for both pins. Updates counter
+  // if they are valid and have rotated a full indent
+  int current_T, deltaT_Inc, deltaT_Dec;
+  static uint8_t old_AB = 3;                                                                  // Lookup table index
+  static int8_t encval = 0;                                                                   // Encoder value
+  static const int8_t enc_states[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };  // Lookup table
+
+  old_AB <<= 2;  // Remember previous state
+
+  if (HAL_GPIO_ReadPin(ENC_A_GPIO_Port, ENC_A_Pin)) old_AB |= 0x02;  // Add current state of pin A
+  if (HAL_GPIO_ReadPin(ENC_B_GPIO_Port, ENC_B_Pin)) old_AB |= 0x01;  // Add current state of pin B
+
+  encval += enc_states[(old_AB & 0x0f)];
+
+  // Update counter if encoder has rotated a full indent, that is at least 4 steps
+  if (encval > 3) {  // Four steps forward
+    int changevalue = 1;
+
+    current_T = micros();
+	if (current_T >= _lastIncReadTime) {// No overflow occurred
+		deltaT_Inc = (int)(current_T - _lastIncReadTime);//gets the change in time from the last measurement
+	} else {// Overflow occurred
+		deltaT_Inc = (int)((UINT16_MAX - _lastIncReadTime) + current_T + 1);
+	}
+
+    if (deltaT_Inc < _pauseLength) {
+      changevalue = _fastIncrement * changevalue;
+    }
+    _lastIncReadTime = micros();
+    encoder_TOP_pos = encoder_TOP_pos + changevalue;  // Update counter
+    encval = 0;
   }
+  else if (encval < -3) {  // Four steps backward
+    int changevalue = -1;
 
-  if (pwmVal > 0)  //going forward
-  {
-    if (mode == 0) {
-//
-//      analogWrite(PWM_BOT_A, motorSpeed);
-//      analogWrite(PWM_BOT_B, 0);
-    } else if (mode == 1) {
-//      analogWrite(PWM_BOT_A, motorSpeed);
-      HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_SET);
-      HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_RESET);
+    current_T = micros();
+	if (current_T >= _lastDecReadTime) {// No overflow occurred
+		deltaT_Dec = (int)(current_T - _lastDecReadTime);//gets the change in time from the last measurement
+	} else {// Overflow occurred
+		deltaT_Dec = (int)((UINT16_MAX - _lastDecReadTime) + current_T + 1);
+	}
+    if (deltaT_Dec < _pauseLength) {
+      changevalue = _fastIncrement * changevalue;
     }
-
-  } else if (pwmVal < 0)  //going backwards
-  {
-    if (mode == 0) {
-//      analogWrite(PWM_BOT_A, 0);
-//      analogWrite(PWM_BOT_B, motorSpeed);
-    } else if (mode == 1) {
-//      analogWrite(PWM_BOT_A, motorSpeed);
-      HAL_GPIO_WritePin(IN_BOT_1_GPIO_Port, IN_BOT_1_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(IN_BOT_2_GPIO_Port, IN_BOT_2_Pin, GPIO_PIN_SET);
-    }
-  } else  //stop motor when pwmVal is 0
-  {
-//    analogWrite(PWM_BOT_A, 0);
-    if (mode == 0) {
-//      analogWrite(PWM_BOT_B, 0);
-    }
+    _lastDecReadTime = micros();
+    encoder_TOP_pos = encoder_TOP_pos + changevalue;  // Update counter
+    encval = 0;
   }
 }
 
-void moveTopMotor(float pwmVal) {
-  int motorSpeed = (int)fabs(pwmVal);
-  if (motorSpeed > 255) {  //constrain motorspeed value to max
-    motorSpeed = 255;
-  }
-
-  if (pwmVal > 0)  //going forward
-  {
-    if (mode == 0) {
-//      analogWrite(PWM_TOP_A, motorSpeed);
-//      analogWrite(PWM_TOP_B, 0);
-    } else if (mode == 1) {
-//      analogWrite(PWM_TOP_A, motorSpeed);
-      HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_SET);
-      HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_RESET);
-    }
-
-  } else if (pwmVal < 0)  //going backwards
-  {
-    if (mode == 0) {
-//      analogWrite(PWM_TOP_A, 0);
-//      analogWrite(PWM_TOP_B, motorSpeed);
-    } else if (mode == 1) {
-//      analogWrite(PWM_TOP_A, motorSpeed);
-      HAL_GPIO_WritePin(IN_TOP_1_GPIO_Port, IN_TOP_1_Pin, GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(IN_TOP_2_GPIO_Port, IN_TOP_2_Pin, GPIO_PIN_SET);
-    }
-  } else  //stop motor when pwmVal is 0
-  {
-//    analogWrite(PWM_TOP_A, 0);
-    if (mode == 0) {
-//      analogWrite(PWM_TOP_B, 0);
-    }
-  }
+long micros(void){
+	return __HAL_TIM_GET_COUNTER(&htim3);
 }
 
-void read_encoder_BOT() {
-  encoder_BOT_pos = 0;
-}
-void read_encoder_TOP() {
-  encoder_TOP_pos = 0;;
-}
 /* USER CODE END 4 */
 
 /**

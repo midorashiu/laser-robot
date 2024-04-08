@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -57,30 +59,32 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LASER_Pin GPIO_PIN_13
-#define LASER_GPIO_Port GPIOC
-#define CS_BOT_Pin GPIO_PIN_14
-#define CS_BOT_GPIO_Port GPIOC
-#define CS_TOP_Pin GPIO_PIN_15
-#define CS_TOP_GPIO_Port GPIOC
-#define ISR_DUTY_Pin GPIO_PIN_1
-#define ISR_DUTY_GPIO_Port GPIOA
-#define PWM_BOT_A_Pin GPIO_PIN_7
-#define PWM_BOT_A_GPIO_Port GPIOA
-#define PWM_BOT_B_Pin GPIO_PIN_0
+#define DEC1_Pin GPIO_PIN_1
+#define DEC1_GPIO_Port GPIOA
+#define DEC2_Pin GPIO_PIN_2
+#define DEC2_GPIO_Port GPIOA
+#define DEC3_Pin GPIO_PIN_3
+#define DEC3_GPIO_Port GPIOA
+#define DEC4_Pin GPIO_PIN_4
+#define DEC4_GPIO_Port GPIOA
+#define DEC5_Pin GPIO_PIN_5
+#define DEC5_GPIO_Port GPIOA
+#define DEC6_Pin GPIO_PIN_6
+#define DEC6_GPIO_Port GPIOA
+#define ENC_A_Pin GPIO_PIN_10
+#define ENC_A_GPIO_Port GPIOB
+#define ENC_B_Pin GPIO_PIN_11
+#define ENC_B_GPIO_Port GPIOB
+#define ISR_DUTY_Pin GPIO_PIN_12
+#define ISR_DUTY_GPIO_Port GPIOB
+#define PWM_BOT_A_Pin GPIO_PIN_6
+#define PWM_BOT_A_GPIO_Port GPIOB
+#define PWM_BOT_B_Pin GPIO_PIN_7
 #define PWM_BOT_B_GPIO_Port GPIOB
-#define IN_BOT_1_Pin GPIO_PIN_1
-#define IN_BOT_1_GPIO_Port GPIOB
-#define IN_BOT_2_Pin GPIO_PIN_2
-#define IN_BOT_2_GPIO_Port GPIOB
-#define PWM_TOP_B_Pin GPIO_PIN_6
-#define PWM_TOP_B_GPIO_Port GPIOB
-#define PWM_TOP_A_Pin GPIO_PIN_7
+#define PWM_TOP_A_Pin GPIO_PIN_8
 #define PWM_TOP_A_GPIO_Port GPIOB
-#define IN_TOP_2_Pin GPIO_PIN_8
-#define IN_TOP_2_GPIO_Port GPIOB
-#define IN_TOP_1_Pin GPIO_PIN_9
-#define IN_TOP_1_GPIO_Port GPIOB
+#define PWM_TOP_B_Pin GPIO_PIN_9
+#define PWM_TOP_B_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
